@@ -18,6 +18,8 @@ internal sealed class SequencePropertyRuleBuilder<TRuleChainBuilder, TTarget, TV
 
     public INegatableVerificationStage<TRuleChainBuilder, TTarget, TValue> All => SetOperatorStrategy(new AllOperatorStrategy<TTarget, TValue>());
 
+    public INegatableVerificationStage<TRuleChainBuilder, TTarget, TValue> Any => SetOperatorStrategy(new AnyOperatorStrategy<TTarget, TValue>());
+
     public IOperatorStage<TRuleChainBuilder, TTarget, TValue> No
     {
         get

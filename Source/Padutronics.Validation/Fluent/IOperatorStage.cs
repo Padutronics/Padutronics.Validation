@@ -2,6 +2,6 @@
 
 namespace Padutronics.Validation.Fluent;
 
-public interface IOperatorStage<out TRuleChainBuilder, out TTarget, out TValue> : IAll<TRuleChainBuilder, TTarget, TValue>
+public interface IOperatorStage<out TRuleChainBuilder, out TTarget, out TValue> : IAll<TRuleChainBuilder, TTarget, TValue>, IAny<TRuleChainBuilder, TTarget, TValue>
 {
 }
