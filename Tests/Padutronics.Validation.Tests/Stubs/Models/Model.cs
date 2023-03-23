@@ -1,4 +1,4 @@
-﻿namespace Padutronics.Validation.Test.Models;
+﻿namespace Padutronics.Validation.Test.Stubs.Models;
 
 internal sealed class Model<T>
 {

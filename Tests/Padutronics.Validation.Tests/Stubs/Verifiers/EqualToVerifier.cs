@@ -1,7 +1,7 @@
 ﻿using Padutronics.Validation.Verifiers;
 using System.Collections.Generic;
 
-namespace Padutronics.Validation.Test.Verifiers;
+namespace Padutronics.Validation.Test.Stubs.Verifiers;
 
 internal sealed class EqualToVerifier<T> : IVerifier<T>
 {

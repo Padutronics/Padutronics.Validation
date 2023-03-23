@@ -1,12 +1,12 @@
 ﻿using NUnit.Framework;
 using Padutronics.Validation.Rules.Building;
-using Padutronics.Validation.Test.Models;
-using Padutronics.Validation.Test.Verifiers;
+using Padutronics.Validation.Test.Stubs.Models;
+using Padutronics.Validation.Test.Stubs.Verifiers;
 
-namespace Padutronics.Validation.Test;
+namespace Padutronics.Validation.Test.Opertators;
 
 [TestFixture]
-internal sealed class Verify_value_property
+internal sealed class Operator_is
 {
     private sealed class ModelValidator : Validator<Model<int>>
     {
@@ -14,12 +14,12 @@ internal sealed class Verify_value_property
         {
             ruleSetBuilder.Property(model => model.Value)
                 .Is.VerifiableBy(new EqualToVerifier<int>(3))
-                .WithMessage("Value is not equal to 3.");
+                .WithMessage("Not all values are equal to 3.");
         }
     }
 
     [Test]
-    public void Validation_is_failed()
+    public void Validation_is_failed_if_value_is_invalid()
     {
         // Arrange.
         var validator = new ModelValidator();
@@ -33,7 +33,7 @@ internal sealed class Verify_value_property
     }
 
     [Test]
-    public void Validation_is_succeeded()
+    public void Validation_is_succeeded_if_value_is_valid()
     {
         // Arrange.
         var validator = new ModelValidator();
