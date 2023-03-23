@@ -11,7 +11,6 @@ public sealed class ValidationResult
 {
     private readonly IReadOnlyDictionary<string, IEnumerable<ValidationMessage>> propertyNameToMessagesMappings;
 
-    // TODO: Refactor to receive dictionary.
     public ValidationResult(IEnumerable<ValidationError> errors)
     {
         propertyNameToMessagesMappings = errors
