@@ -30,6 +30,8 @@ internal sealed class SequencePropertyRuleBuilder<TRuleChainBuilder, TTarget, TV
         }
     }
 
+    public INegatableVerificationStage<TRuleChainBuilder, TTarget, TValue> None => SetOperatorStrategy(new NoneOperatorStrategy<TTarget, TValue>());
+
     private SequencePropertyRuleBuilder<TRuleChainBuilder, TTarget, TValue> SetOperatorStrategy(IOperatorStrategy<TTarget, TValue, IEnumerable<TValue>> operatorStrategy)
     {
         SetOperator(new Operator<TTarget, TValue, IEnumerable<TValue>>(operatorStrategy, valueExtractor));
