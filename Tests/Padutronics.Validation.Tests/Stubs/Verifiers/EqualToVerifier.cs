@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Padutronics.Validation.Test.Stubs.Verifiers;
 
-internal sealed class EqualToVerifier<T> : IVerifier<T>
+internal sealed class EqualToVerifier<T> : Verifier<T>
 {
     private readonly T expectedValue;
 
@@ -12,7 +12,7 @@ internal sealed class EqualToVerifier<T> : IVerifier<T>
         this.expectedValue = expectedValue;
     }
 
-    public VerificationResult Verify(T value)
+    public override VerificationResult Verify(T value)
     {
         return EqualityComparer<T>.Default.Equals(value, expectedValue)
             ? VerificationResults.Success

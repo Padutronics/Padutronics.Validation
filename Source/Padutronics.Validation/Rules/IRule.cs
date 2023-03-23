@@ -1,8 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Threading.Tasks;
 
 namespace Padutronics.Validation.Rules;
 
 internal interface IRule<in TTarget>
 {
-    bool TryEvaluate(TTarget target, [NotNullWhen(true)] out ValidationMessage? message);
+    ValidationMessage? Evaluate(TTarget target);
+    Task<ValidationMessage?> EvaluateAsync(TTarget target);
 }

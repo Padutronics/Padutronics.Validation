@@ -18,5 +18,6 @@
     <ItemGroup>
         <PackageReference Include="Padutronics.Diagnostics.Debugging" Version="0.2.0" />
         <PackageReference Include="Padutronics.Extensions.System" Version="0.4.0" />
+        <PackageReference Include="Padutronics.Extensions.System.Collections.Generic" Version="0.4.0" />
     </ItemGroup>
 </Project>

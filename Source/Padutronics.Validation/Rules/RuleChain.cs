@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace Padutronics.Validation.Rules;
 
@@ -12,18 +12,31 @@ internal sealed class RuleChain<TTarget>
         this.rules = rules;
     }
 
-    public bool TryEvaluate(TTarget target, [NotNullWhen(true)] out ValidationMessage? message)
+    public ValidationMessage? Evaluate(TTarget target)
     {
-        message = null;
+        return EvaluateAsync(target, isAsync: false).GetAwaiter().GetResult();
+    }
+
+    public Task<ValidationMessage?> EvaluateAsync(TTarget target)
+    {
+        return EvaluateAsync(target, isAsync: true);
+    }
+
+    private async Task<ValidationMessage?> EvaluateAsync(TTarget target, bool isAsync)
+    {
+        ValidationMessage? message = null;
 
         foreach (IRule<TTarget> rule in rules)
         {
-            if (rule.TryEvaluate(target, out message))
+            message = isAsync
+                ? await rule.EvaluateAsync(target)
+                : rule.Evaluate(target);
+            if (message is not null)
             {
                 break;
             }
         }
 
-        return message is not null;
+        return message;
     }
 }

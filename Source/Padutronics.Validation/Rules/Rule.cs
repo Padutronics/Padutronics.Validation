@@ -1,7 +1,7 @@
 ﻿using Padutronics.Validation.Messages;
 using Padutronics.Validation.Operators;
 using Padutronics.Validation.Verifiers;
-using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace Padutronics.Validation.Rules;
 
@@ -25,23 +25,33 @@ internal sealed class Rule<TTarget, TValue> : IRule<TTarget>
         return new ValidationMessage(message);
     }
 
-    private bool IsValid(TTarget target)
+    public ValidationMessage? Evaluate(TTarget target)
     {
-        return operationData.Operator.Evaluate(target, verificationData).IsSucceeded ^ operationData.IsOperationNegated;
+        return EvaluateAsync(target, isAsync: false).GetAwaiter().GetResult();
     }
 
-    public bool TryEvaluate(TTarget target, [NotNullWhen(true)] out ValidationMessage? message)
+    public Task<ValidationMessage?> EvaluateAsync(TTarget target)
     {
-        message = null;
+        return EvaluateAsync(target, isAsync: true);
+    }
+
+    private async Task<ValidationMessage?> EvaluateAsync(TTarget target, bool isAsync)
+    {
+        ValidationMessage? message = null;
 
         if (verificationData.VerificationCondition(target))
         {
-            if (!IsValid(target))
+            OperationResult operationResult = isAsync
+                ? await operationData.Operator.EvaluateAsync(target, verificationData)
+                : operationData.Operator.Evaluate(target, verificationData);
+
+            bool isValid = operationResult.IsSucceeded ^ operationData.IsOperationNegated;
+            if (!isValid)
             {
                 message = CreateMessage(target);
             }
         }
 
-        return message is not null;
+        return message;
     }
 }

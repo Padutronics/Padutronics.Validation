@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Padutronics.Validation.Rules;
 
@@ -14,6 +15,17 @@ internal sealed class RuleSet<TTarget>
 
     public ValidationResult Validate(ValidationContext<TTarget> context)
     {
+        return ValidateAsync(context, isAsync: false).GetAwaiter().GetResult();
+    }
+
+    public Task<ValidationResult> ValidateAsync(ValidationContext<TTarget> context)
+    {
+        return ValidateAsync(context, isAsync: true);
+    }
+
+    // TODO: Add 'Core' suffix for methods that holds actual implementation.
+    private async Task<ValidationResult> ValidateAsync(ValidationContext<TTarget> context, bool isAsync)
+    {
         var propertyNameToMessagesMappings = new Dictionary<string, ICollection<ValidationMessage>>();
         var shouldContinue = true;
 
@@ -23,7 +35,10 @@ internal sealed class RuleSet<TTarget>
             {
                 foreach (RuleChain<TTarget> ruleChain in profile.RuleChains)
                 {
-                    if (ruleChain.TryEvaluate(context.Target, out ValidationMessage? message))
+                    ValidationMessage? message = isAsync
+                        ? await ruleChain.EvaluateAsync(context.Target)
+                        : ruleChain.Evaluate(context.Target);
+                    if (message is not null)
                     {
                         if (!propertyNameToMessagesMappings.TryGetValue(profile.PropertyName, out ICollection<ValidationMessage>? messages))
                         {

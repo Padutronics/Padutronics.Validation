@@ -2,7 +2,7 @@
 
 namespace Padutronics.Validation.Verifiers;
 
-internal sealed class DelegateVerifier<T> : IVerifier<T>
+public sealed class DelegateVerifier<T> : Verifier<T>
 {
     private readonly Func<T, VerificationResult> verifyMethod;
 
@@ -11,7 +11,7 @@ internal sealed class DelegateVerifier<T> : IVerifier<T>
         this.verifyMethod = verifyMethod;
     }
 
-    public VerificationResult Verify(T value)
+    public override VerificationResult Verify(T value)
     {
         return verifyMethod(value);
     }

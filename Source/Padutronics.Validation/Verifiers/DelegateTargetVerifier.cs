@@ -2,7 +2,7 @@
 
 namespace Padutronics.Validation.Verifiers;
 
-public sealed class DelegateTargetVerifier<TTarget, TValue> : ITargetVerifier<TTarget, TValue>
+public sealed class DelegateTargetVerifier<TTarget, TValue> : TargetVerifier<TTarget, TValue>
 {
     private readonly Func<TTarget, TValue, VerificationResult> verifyMethod;
 
@@ -11,7 +11,7 @@ public sealed class DelegateTargetVerifier<TTarget, TValue> : ITargetVerifier<TT
         this.verifyMethod = verifyMethod;
     }
 
-    public VerificationResult Verify(TTarget target, TValue value)
+    public override VerificationResult Verify(TTarget target, TValue value)
     {
         return verifyMethod(target, value);
     }

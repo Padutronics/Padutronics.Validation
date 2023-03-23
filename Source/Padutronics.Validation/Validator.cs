@@ -2,6 +2,7 @@
 using Padutronics.Validation.Rules;
 using Padutronics.Validation.Rules.Building;
 using System;
+using System.Threading.Tasks;
 
 namespace Padutronics.Validation;
 
@@ -50,5 +51,30 @@ public abstract class Validator<T> : IValidator<T>
     private ValidationResult Validate(T instance, IValidationPolicy validationPolicy, CascadeMode cascadeMode)
     {
         return ruleSet.Value.Validate(new ValidationContext<T>(instance, validationPolicy, cascadeMode));
+    }
+
+    public Task<ValidationResult> ValidateAsync(T instance)
+    {
+        return ValidateAsync(instance, DefaultCascadeMode);
+    }
+
+    public Task<ValidationResult> ValidateAsync(T instance, CascadeMode cascadeMode)
+    {
+        return ValidateAsync(instance, new AnyPropertyValidationPolicy(), cascadeMode);
+    }
+
+    public Task<ValidationResult> ValidateAsync(T instance, string propertyName)
+    {
+        return ValidateAsync(instance, propertyName, DefaultCascadeMode);
+    }
+
+    public Task<ValidationResult> ValidateAsync(T instance, string propertyName, CascadeMode cascadeMode)
+    {
+        return ValidateAsync(instance, new NamedPropertyValidationPolicy(propertyName), cascadeMode);
+    }
+
+    private Task<ValidationResult> ValidateAsync(T instance, IValidationPolicy validationPolicy, CascadeMode cascadeMode)
+    {
+        return ruleSet.Value.ValidateAsync(new ValidationContext<T>(instance, validationPolicy, cascadeMode));
     }
 }

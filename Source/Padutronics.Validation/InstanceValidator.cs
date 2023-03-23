@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Padutronics.Validation;
 
@@ -101,5 +102,25 @@ public sealed class InstanceValidator<T> : IValidator
     public ValidationResult Validate(string propertyName, CascadeMode cascadeMode)
     {
         return UpdateResultAndNotify(validator.Validate(instance, propertyName, cascadeMode), propertyName);
+    }
+
+    public async Task<ValidationResult> ValidateAsync()
+    {
+        return UpdateResultAndNotify(await validator.ValidateAsync(instance));
+    }
+
+    public async Task<ValidationResult> ValidateAsync(CascadeMode cascadeMode)
+    {
+        return UpdateResultAndNotify(await validator.ValidateAsync(instance, cascadeMode));
+    }
+
+    public async Task<ValidationResult> ValidateAsync(string propertyName)
+    {
+        return UpdateResultAndNotify(await validator.ValidateAsync(instance, propertyName), propertyName);
+    }
+
+    public async Task<ValidationResult> ValidateAsync(string propertyName, CascadeMode cascadeMode)
+    {
+        return UpdateResultAndNotify(await validator.ValidateAsync(instance, propertyName, cascadeMode), propertyName);
     }
 }
