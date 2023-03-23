@@ -33,6 +33,11 @@ public sealed class ValidationResult
 
     public IEnumerable<string> PropertyNames => propertyNameToMessagesMappings.Keys;
 
+    public bool ContainsError(string propertyName)
+    {
+        return propertyNameToMessagesMappings.ContainsKey(propertyName);
+    }
+
     public IEnumerable<ValidationError> GetErrors()
     {
         return propertyNameToMessagesMappings

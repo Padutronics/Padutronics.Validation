@@ -1,9 +1,15 @@
-﻿namespace Padutronics.Validation;
+﻿using System;
 
-public interface IValidator<in T>
+namespace Padutronics.Validation;
+
+public interface IValidator
 {
-    ValidationResult Validate(T instance);
-    ValidationResult Validate(T instance, CascadeMode cascadeMode);
-    ValidationResult Validate(T instance, string propertyName);
-    ValidationResult Validate(T instance, string propertyName, CascadeMode cascadeMode);
+    ValidationResult Result { get; }
+
+    event EventHandler<ValidationResultChangedEventArgs>? ResultChanged;
+
+    ValidationResult Validate();
+    ValidationResult Validate(CascadeMode cascadeMode);
+    ValidationResult Validate(string propertyName);
+    ValidationResult Validate(string propertyName, CascadeMode cascadeMode);
 }
