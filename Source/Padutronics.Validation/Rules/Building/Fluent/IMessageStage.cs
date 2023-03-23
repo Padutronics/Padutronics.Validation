@@ -1,6 +1,6 @@
 ﻿using Padutronics.Validation.Messages;
 
-namespace Padutronics.Validation.Fluent;
+namespace Padutronics.Validation.Rules.Building.Fluent;
 
 public interface IMessageStage<out TRuleChainBuilder, out TTarget>
 {

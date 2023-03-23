@@ -1,6 +1,6 @@
 ﻿using Padutronics.Validation.Operators.Strategires;
 
-namespace Padutronics.Validation.Fluent;
+namespace Padutronics.Validation.Rules.Building.Fluent;
 
 public interface IOperatorStage<out TRuleChainBuilder, out TTarget, out TValue>
 {

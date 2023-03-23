@@ -1,6 +1,6 @@
-﻿using Padutronics.Validation.Fluent;
-using Padutronics.Validation.Operators;
+﻿using Padutronics.Validation.Operators;
 using Padutronics.Validation.Operators.Strategires;
+using Padutronics.Validation.Rules.Building.Fluent;
 using Padutronics.Validation.ValueExtractors;
 using System.Collections.Generic;
 

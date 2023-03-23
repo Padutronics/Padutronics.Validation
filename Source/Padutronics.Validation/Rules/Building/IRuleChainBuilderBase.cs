@@ -1,4 +1,4 @@
-﻿using Padutronics.Validation.Fluent;
+﻿using Padutronics.Validation.Rules.Building.Fluent;
 
 namespace Padutronics.Validation.Rules.Building;
 

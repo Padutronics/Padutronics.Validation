@@ -1,6 +1,6 @@
-﻿using Padutronics.Validation.Fluent;
-using Padutronics.Validation.Messages;
+﻿using Padutronics.Validation.Messages;
 using Padutronics.Validation.Operators;
+using Padutronics.Validation.Rules.Building.Fluent;
 using Padutronics.Validation.Verifiers;
 using Padutronics.Validation.Verifiers.Adapters;
 using System;

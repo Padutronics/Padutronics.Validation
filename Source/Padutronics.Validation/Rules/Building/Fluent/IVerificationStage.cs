@@ -1,6 +1,6 @@
 ﻿using Padutronics.Validation.Verifiers;
 
-namespace Padutronics.Validation.Fluent;
+namespace Padutronics.Validation.Rules.Building.Fluent;
 
 public interface IVerificationStage<out TRuleChainBuilder, out TTarget, out TValue>
 {

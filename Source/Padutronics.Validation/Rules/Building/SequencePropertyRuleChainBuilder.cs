@@ -1,4 +1,4 @@
-﻿using Padutronics.Validation.Fluent;
+﻿using Padutronics.Validation.Rules.Building.Fluent;
 using Padutronics.Validation.ValueExtractors;
 using System.Collections.Generic;
 
