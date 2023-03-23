@@ -1,7 +1,9 @@
-﻿using Padutronics.Validation.Fluent.Language;
+﻿using System;
 
 namespace Padutronics.Validation.Fluent;
 
-public interface IConditionStage<out TRuleChainBuilder, out TTarget> : IMessageStage<TRuleChainBuilder, TTarget>, IUnless<TRuleChainBuilder, TTarget>, IWhen<TRuleChainBuilder, TTarget>
+public interface IConditionStage<out TRuleChainBuilder, out TTarget> : IMessageStage<TRuleChainBuilder, TTarget>
 {
+    IMessageStage<TRuleChainBuilder, TTarget> Unless(Predicate<TTarget> condition);
+    IMessageStage<TRuleChainBuilder, TTarget> When(Predicate<TTarget> condition);
 }

@@ -1,8 +1,9 @@
-﻿using Padutronics.Validation.Fluent.Language;
+﻿using Padutronics.Validation.Fluent;
 using System.Collections.Generic;
 
 namespace Padutronics.Validation.Rules.Building;
 
-public interface ISequencePropertyRuleChainBuilder<out TTarget, out TValue> : IDoes<ISequencePropertyRuleChainBuilder<TTarget, TValue>, TTarget, IEnumerable<TValue>>, IHas<ISequencePropertyRuleChainBuilder<TTarget, TValue>, TTarget, TValue>, IIs<ISequencePropertyRuleChainBuilder<TTarget, TValue>, TTarget, IEnumerable<TValue>>
+public interface ISequencePropertyRuleChainBuilder<out TTarget, out TValue> : IRuleChainBuilderBase<ISequencePropertyRuleChainBuilder<TTarget, TValue>, TTarget, IEnumerable<TValue>>
 {
+    INegatableOperatorStage<ISequencePropertyRuleChainBuilder<TTarget, TValue>, TTarget, TValue> Has { get; }
 }
