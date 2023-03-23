@@ -1,12 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Padutronics.Validation.Verifiers.Adapters;
 
 public sealed class VerifierFactoryToVerifierAdapter<TTarget, TValue> : IVerifier<TTarget, TValue>
 {
-    private readonly VerifierFactory<TTarget, TValue> verifierFactory;
+    private readonly Func<TTarget, IVerifier<TValue>> verifierFactory;
 
-    public VerifierFactoryToVerifierAdapter(VerifierFactory<TTarget, TValue> verifierFactory)
+    public VerifierFactoryToVerifierAdapter(Func<TTarget, IVerifier<TValue>> verifierFactory)
     {
         this.verifierFactory = verifierFactory;
     }
