@@ -32,6 +32,8 @@ internal sealed class SequencePropertyRuleBuilder<TRuleChainBuilder, TTarget, TV
 
     public INegatableVerificationStage<TRuleChainBuilder, TTarget, TValue> None => SetOperatorStrategy(new NoneOperatorStrategy<TTarget, TValue>());
 
+    public INegatableVerificationStage<TRuleChainBuilder, TTarget, TValue> Some => Any;
+
     public INegatableVerificationStage<TRuleChainBuilder, TTarget, TValue> AtLeast(ExpectedCount expectedLowerBound)
     {
         return SetOperatorStrategy(new AtLeastOperatorStrategy<TTarget, TValue>(expectedLowerBound));
