@@ -66,4 +66,29 @@ internal sealed class RuleSetBuilder<TTarget> : IRuleSetBuilder<TTarget>
     {
         return AddRuleChainBuilder(propertyExpression, new SequencePropertyRuleChainBuilder<TTarget, TValue>(new PropertyValueExtractor<TTarget, TValue[]>(propertyExpression)));
     }
+
+    public ISequencePropertyRuleChainBuilder<TTarget, TValue> Property<TValue>(Expression<Func<TTarget, ICollection<TValue>>> propertyExpression)
+    {
+        return AddRuleChainBuilder(propertyExpression, new SequencePropertyRuleChainBuilder<TTarget, TValue>(new PropertyValueExtractor<TTarget, ICollection<TValue>>(propertyExpression)));
+    }
+
+    public ISequencePropertyRuleChainBuilder<TTarget, TValue> Property<TValue>(Expression<Func<TTarget, IEnumerable<TValue>>> propertyExpression)
+    {
+        return AddRuleChainBuilder(propertyExpression, new SequencePropertyRuleChainBuilder<TTarget, TValue>(new PropertyValueExtractor<TTarget, IEnumerable<TValue>>(propertyExpression)));
+    }
+
+    public ISequencePropertyRuleChainBuilder<TTarget, TValue> Property<TValue>(Expression<Func<TTarget, IList<TValue>>> propertyExpression)
+    {
+        return AddRuleChainBuilder(propertyExpression, new SequencePropertyRuleChainBuilder<TTarget, TValue>(new PropertyValueExtractor<TTarget, IList<TValue>>(propertyExpression)));
+    }
+
+    public ISequencePropertyRuleChainBuilder<TTarget, TValue> Property<TValue>(Expression<Func<TTarget, IReadOnlyCollection<TValue>>> propertyExpression)
+    {
+        return AddRuleChainBuilder(propertyExpression, new SequencePropertyRuleChainBuilder<TTarget, TValue>(new PropertyValueExtractor<TTarget, IReadOnlyCollection<TValue>>(propertyExpression)));
+    }
+
+    public ISequencePropertyRuleChainBuilder<TTarget, TValue> Property<TValue>(Expression<Func<TTarget, IReadOnlyList<TValue>>> propertyExpression)
+    {
+        return AddRuleChainBuilder(propertyExpression, new SequencePropertyRuleChainBuilder<TTarget, TValue>(new PropertyValueExtractor<TTarget, IReadOnlyList<TValue>>(propertyExpression)));
+    }
 }
