@@ -7,38 +7,24 @@ using System.Collections.Generic;
 namespace Padutronics.Validation.Test.Opertators;
 
 [TestFixture]
-internal sealed class Operator_none
+internal sealed class Operator_exactly
 {
     private sealed class ModelValidator : Validator<Model<IEnumerable<int>>>
     {
         protected override void BuildRuleSet(IRuleSetBuilder<Model<IEnumerable<int>>> ruleSetBuilder)
         {
             ruleSetBuilder.Property(model => model.Value)
-                .Has.None.VerifiableBy(new EqualToVerifier<int>(3))
-                .WithMessage("At least one value is equal to 3.");
+                .Has.Exactly(2).VerifiableBy(new EqualToVerifier<int>(3))
+                .WithMessage("More or less than 2 values are equal to 3.");
         }
     }
 
     [Test]
-    public void Validation_is_succeeded_if_all_values_are_invalid()
+    public void Validation_is_failed_if_all_values_are_invalid()
     {
         // Arrange.
         var validator = new ModelValidator();
-        var model = new Model<IEnumerable<int>>(new[] { 2, 2 });
-
-        // Act.
-        ValidationResult result = validator.Validate(model);
-
-        // Assert.
-        Assert.That(result.IsSucceeded, Is.True);
-    }
-
-    [Test]
-    public void Validation_is_failed_if_at_least_one_value_is_valid_and_one_is_invalid()
-    {
-        // Arrange.
-        var validator = new ModelValidator();
-        var model = new Model<IEnumerable<int>>(new[] { 2, 3 });
+        var model = new Model<IEnumerable<int>>(new[] { 2, 2, 2 });
 
         // Act.
         ValidationResult result = validator.Validate(model);
@@ -48,11 +34,39 @@ internal sealed class Operator_none
     }
 
     [Test]
-    public void Validation_is_failed_if_all_values_are_valid()
+    public void Validation_is_failed_if_there_are_less_valid_values_than_expected()
     {
         // Arrange.
         var validator = new ModelValidator();
-        var model = new Model<IEnumerable<int>>(new[] { 3, 3 });
+        var model = new Model<IEnumerable<int>>(new[] { 2, 2, 3 });
+
+        // Act.
+        ValidationResult result = validator.Validate(model);
+
+        // Assert.
+        Assert.That(result.IsSucceeded, Is.False);
+    }
+
+    [Test]
+    public void Validation_is_succeeded_if_amount_of_valid_values_is_exactly_as_expected()
+    {
+        // Arrange.
+        var validator = new ModelValidator();
+        var model = new Model<IEnumerable<int>>(new[] { 2, 3, 3 });
+
+        // Act.
+        ValidationResult result = validator.Validate(model);
+
+        // Assert.
+        Assert.That(result.IsSucceeded, Is.True);
+    }
+
+    [Test]
+    public void Validation_is_failed_if_there_are_more_valid_values_than_expected()
+    {
+        // Arrange.
+        var validator = new ModelValidator();
+        var model = new Model<IEnumerable<int>>(new[] { 3, 3, 3 });
 
         // Act.
         ValidationResult result = validator.Validate(model);

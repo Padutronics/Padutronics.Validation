@@ -14,7 +14,7 @@ internal sealed class Operator_is
         {
             ruleSetBuilder.Property(model => model.Value)
                 .Is.VerifiableBy(new EqualToVerifier<int>(3))
-                .WithMessage("Not all values are equal to 3.");
+                .WithMessage("Value is not equal to 3.");
         }
     }
 
