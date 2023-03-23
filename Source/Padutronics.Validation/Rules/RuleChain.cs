@@ -14,15 +14,15 @@ internal sealed class RuleChain<TTarget>
 
     public ValidationMessage? Evaluate(TTarget target)
     {
-        return EvaluateAsync(target, isAsync: false).GetAwaiter().GetResult();
+        return EvaluateCoreAsync(target, isAsync: false).GetAwaiter().GetResult();
     }
 
     public Task<ValidationMessage?> EvaluateAsync(TTarget target)
     {
-        return EvaluateAsync(target, isAsync: true);
+        return EvaluateCoreAsync(target, isAsync: true);
     }
 
-    private async Task<ValidationMessage?> EvaluateAsync(TTarget target, bool isAsync)
+    private async Task<ValidationMessage?> EvaluateCoreAsync(TTarget target, bool isAsync)
     {
         ValidationMessage? message = null;
 

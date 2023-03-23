@@ -15,16 +15,15 @@ internal sealed class RuleSet<TTarget>
 
     public ValidationResult Validate(ValidationContext<TTarget> context)
     {
-        return ValidateAsync(context, isAsync: false).GetAwaiter().GetResult();
+        return ValidateCoreAsync(context, isAsync: false).GetAwaiter().GetResult();
     }
 
     public Task<ValidationResult> ValidateAsync(ValidationContext<TTarget> context)
     {
-        return ValidateAsync(context, isAsync: true);
+        return ValidateCoreAsync(context, isAsync: true);
     }
 
-    // TODO: Add 'Core' suffix for methods that holds actual implementation.
-    private async Task<ValidationResult> ValidateAsync(ValidationContext<TTarget> context, bool isAsync)
+    private async Task<ValidationResult> ValidateCoreAsync(ValidationContext<TTarget> context, bool isAsync)
     {
         var propertyNameToMessagesMappings = new Dictionary<string, ICollection<ValidationMessage>>();
         var shouldContinue = true;
