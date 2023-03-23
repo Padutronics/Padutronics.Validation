@@ -7,15 +7,15 @@ using System.Collections.Generic;
 namespace Padutronics.Validation.Test.Opertators;
 
 [TestFixture]
-internal sealed class Operator_exactly
+internal sealed class Operator_at_least
 {
     private sealed class ModelValidator : Validator<Model<IEnumerable<int>>>
     {
         protected override void BuildRuleSet(IRuleSetBuilder<Model<IEnumerable<int>>> ruleSetBuilder)
         {
             ruleSetBuilder.Property(model => model.Value)
-                .Has.Exactly(2).VerifiableBy(new EqualToVerifier<int>(3))
-                .WithMessage("More or less than 2 values are equal to 3.");
+                .Has.AtLeast(2).VerifiableBy(new EqualToVerifier<int>(3))
+                .WithMessage("Less than 2 values are equal to 3.");
         }
     }
 
@@ -62,7 +62,7 @@ internal sealed class Operator_exactly
     }
 
     [Test]
-    public void Validation_is_failed_if_there_are_more_valid_values_than_specified()
+    public void Validation_is_succeeded_if_there_are_more_valid_values_than_specified()
     {
         // Arrange.
         var validator = new ModelValidator();
@@ -72,6 +72,6 @@ internal sealed class Operator_exactly
         ValidationResult result = validator.Validate(model);
 
         // Assert.
-        Assert.That(result.IsSucceeded, Is.False);
+        Assert.That(result.IsSucceeded, Is.True);
     }
 }
