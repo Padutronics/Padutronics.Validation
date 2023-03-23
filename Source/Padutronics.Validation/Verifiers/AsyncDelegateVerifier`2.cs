@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 
 namespace Padutronics.Validation.Verifiers;
 
-public sealed class AsyncDelegateTargetVerifier<TTarget, TValue> : AsyncTargetVerifier<TTarget, TValue>
+public sealed class AsyncDelegateVerifier<TTarget, TValue> : AsyncVerifier<TTarget, TValue>
 {
     private readonly Func<TTarget, TValue, Task<VerificationResult>> verifyMethod;
 
-    public AsyncDelegateTargetVerifier(Func<TTarget, TValue, Task<VerificationResult>> verifyMethod)
+    public AsyncDelegateVerifier(Func<TTarget, TValue, Task<VerificationResult>> verifyMethod)
     {
         this.verifyMethod = verifyMethod;
     }

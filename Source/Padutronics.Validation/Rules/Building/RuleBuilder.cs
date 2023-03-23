@@ -16,7 +16,7 @@ internal abstract class RuleBuilder<TRuleChainBuilder, TTarget, TValue> : IRuleB
     private IMessageProvider<TTarget>? messageProvider;
     private IOperator<TTarget, TValue>? @operator;
     private Predicate<TTarget> verificationCondition = _ => true;
-    private ITargetVerifier<TTarget, TValue>? verifier;
+    private IVerifier<TTarget, TValue>? verifier;
 
     protected RuleBuilder(TRuleChainBuilder ruleChainBuilder)
     {
@@ -72,16 +72,16 @@ internal abstract class RuleBuilder<TRuleChainBuilder, TTarget, TValue> : IRuleB
         return When(target => !condition(target));
     }
 
-    public IConditionStage<TRuleChainBuilder, TTarget> VerifiableBy(ITargetVerifier<TTarget, TValue> verifier)
+    public IConditionStage<TRuleChainBuilder, TTarget> VerifiableBy(IVerifier<TValue> verifier)
+    {
+        return VerifiableBy(new VerifierToVerifierAdapter<TTarget, TValue>(verifier));
+    }
+
+    public IConditionStage<TRuleChainBuilder, TTarget> VerifiableBy(IVerifier<TTarget, TValue> verifier)
     {
         this.verifier = verifier;
 
         return this;
-    }
-
-    public IConditionStage<TRuleChainBuilder, TTarget> VerifiableBy(IVerifier<TValue> verifier)
-    {
-        return VerifiableBy(new VerifierToTargetVerifierAdapter<TTarget, TValue>(verifier));
     }
 
     public IMessageStage<TRuleChainBuilder, TTarget> When(Predicate<TTarget> condition)

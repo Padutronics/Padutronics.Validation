@@ -2,11 +2,11 @@
 
 namespace Padutronics.Validation.Verifiers;
 
-public sealed class DelegateTargetVerifier<TTarget, TValue> : TargetVerifier<TTarget, TValue>
+public sealed class DelegateVerifier<TTarget, TValue> : Verifier<TTarget, TValue>
 {
     private readonly Func<TTarget, TValue, VerificationResult> verifyMethod;
 
-    public DelegateTargetVerifier(Func<TTarget, TValue, VerificationResult> verifyMethod)
+    public DelegateVerifier(Func<TTarget, TValue, VerificationResult> verifyMethod)
     {
         this.verifyMethod = verifyMethod;
     }

@@ -2,7 +2,7 @@
 
 namespace Padutronics.Validation.Verifiers;
 
-public abstract class AsyncTargetVerifier<TTarget, TValue> : ITargetVerifier<TTarget, TValue>
+public abstract class AsyncVerifier<TTarget, TValue> : IVerifier<TTarget, TValue>
 {
     public VerificationResult Verify(TTarget target, TValue value)
     {

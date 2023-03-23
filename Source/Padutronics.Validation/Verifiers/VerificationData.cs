@@ -4,7 +4,7 @@ namespace Padutronics.Validation.Verifiers;
 
 internal sealed class VerificationData<TTarget, TValue>
 {
-    public VerificationData(ITargetVerifier<TTarget, TValue> verifier, Predicate<TTarget> verificationCondition, bool isVerificationNegated)
+    public VerificationData(IVerifier<TTarget, TValue> verifier, Predicate<TTarget> verificationCondition, bool isVerificationNegated)
     {
         IsVerificationNegated = isVerificationNegated;
         VerificationCondition = verificationCondition;
@@ -15,5 +15,5 @@ internal sealed class VerificationData<TTarget, TValue>
 
     public Predicate<TTarget> VerificationCondition { get; }
 
-    public ITargetVerifier<TTarget, TValue> Verifier { get; }
+    public IVerifier<TTarget, TValue> Verifier { get; }
 }

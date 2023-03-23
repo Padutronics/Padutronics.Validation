@@ -2,11 +2,11 @@
 
 namespace Padutronics.Validation.Verifiers.Adapters;
 
-internal sealed class VerifierToTargetVerifierAdapter<TTarget, TValue> : ITargetVerifier<TTarget, TValue>
+internal sealed class VerifierToVerifierAdapter<TTarget, TValue> : IVerifier<TTarget, TValue>
 {
     private readonly IVerifier<TValue> verifier;
 
-    public VerifierToTargetVerifierAdapter(IVerifier<TValue> verifier)
+    public VerifierToVerifierAdapter(IVerifier<TValue> verifier)
     {
         this.verifier = verifier;
     }
