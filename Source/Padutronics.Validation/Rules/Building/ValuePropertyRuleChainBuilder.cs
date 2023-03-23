@@ -12,5 +12,7 @@ internal class ValuePropertyRuleChainBuilder<TTarget, TValue> : RuleChainBuilder
         this.valueExtractor = valueExtractor;
     }
 
+    public INegatableVerificationStage<IValuePropertyRuleChainBuilder<TTarget, TValue>, TTarget, TValue> Does => Is;
+
     public INegatableVerificationStage<IValuePropertyRuleChainBuilder<TTarget, TValue>, TTarget, TValue> Is => AddRuleBuilder(new ValuePropertyRuleBuilder<IValuePropertyRuleChainBuilder<TTarget, TValue>, TTarget, TValue>(ruleChainBuilder: this, valueExtractor));
 }

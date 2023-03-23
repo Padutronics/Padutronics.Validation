@@ -13,6 +13,8 @@ internal sealed class SequencePropertyRuleChainBuilder<TTarget, TValue> : RuleCh
         this.valueExtractor = valueExtractor;
     }
 
+    public INegatableVerificationStage<ISequencePropertyRuleChainBuilder<TTarget, TValue>, TTarget, IEnumerable<TValue>> Does => Is;
+
     public INegatableOperatorStage<ISequencePropertyRuleChainBuilder<TTarget, TValue>, TTarget, TValue> Has => AddRuleBuilder(new SequencePropertyRuleBuilder<ISequencePropertyRuleChainBuilder<TTarget, TValue>, TTarget, TValue>(ruleChainBuilder: this, valueExtractor));
 
     public INegatableVerificationStage<ISequencePropertyRuleChainBuilder<TTarget, TValue>, TTarget, IEnumerable<TValue>> Is => AddRuleBuilder(new ValuePropertyRuleBuilder<ISequencePropertyRuleChainBuilder<TTarget, TValue>, TTarget, IEnumerable<TValue>>(ruleChainBuilder: this, valueExtractor));

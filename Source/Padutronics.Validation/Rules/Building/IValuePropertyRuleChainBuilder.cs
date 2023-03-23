@@ -2,6 +2,6 @@
 
 namespace Padutronics.Validation.Rules.Building;
 
-public interface IValuePropertyRuleChainBuilder<out TTarget, out TValue> : IIs<IValuePropertyRuleChainBuilder<TTarget, TValue>, TTarget, TValue>
+public interface IValuePropertyRuleChainBuilder<out TTarget, out TValue> : IDoes<IValuePropertyRuleChainBuilder<TTarget, TValue>, TTarget, TValue>, IIs<IValuePropertyRuleChainBuilder<TTarget, TValue>, TTarget, TValue>
 {
 }
