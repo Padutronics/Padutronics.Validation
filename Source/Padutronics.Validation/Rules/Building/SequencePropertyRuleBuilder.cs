@@ -37,6 +37,11 @@ internal sealed class SequencePropertyRuleBuilder<TRuleChainBuilder, TTarget, TV
         return SetOperatorStrategy(new AtLeastOperatorStrategy<TTarget, TValue>(expectedLowerBound));
     }
 
+    public INegatableVerificationStage<TRuleChainBuilder, TTarget, TValue> AtMost(ExpectedCount expectedUpperBound)
+    {
+        return SetOperatorStrategy(new AtMostOperatorStrategy<TTarget, TValue>(expectedUpperBound));
+    }
+
     public INegatableVerificationStage<TRuleChainBuilder, TTarget, TValue> Exactly(ExpectedCount expectedCount)
     {
         return SetOperatorStrategy(new ExactCountOperatorStrategy<TTarget, TValue>(expectedCount));
