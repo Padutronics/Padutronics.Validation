@@ -2,6 +2,6 @@
 
 namespace Padutronics.Validation.Fluent;
 
-public interface IMessageStage<out TRuleChainBuilder> : IWithMessage<TRuleChainBuilder>
+public interface IMessageStage<out TRuleChainBuilder, out TTarget> : IWithMessage<TRuleChainBuilder, TTarget>
 {
 }

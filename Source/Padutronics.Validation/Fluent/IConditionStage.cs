@@ -2,6 +2,6 @@
 
 namespace Padutronics.Validation.Fluent;
 
-public interface IConditionStage<out TRuleChainBuilder, out TTarget> : IMessageStage<TRuleChainBuilder>, IUnless<TRuleChainBuilder, TTarget>, IWhen<TRuleChainBuilder, TTarget>
+public interface IConditionStage<out TRuleChainBuilder, out TTarget> : IMessageStage<TRuleChainBuilder, TTarget>, IUnless<TRuleChainBuilder, TTarget>, IWhen<TRuleChainBuilder, TTarget>
 {
 }

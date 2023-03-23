@@ -67,7 +67,7 @@ internal abstract class RuleBuilder<TRuleChainBuilder, TTarget, TValue> : IRuleB
         this.@operator = @operator;
     }
 
-    public IMessageStage<TRuleChainBuilder> Unless(Predicate<TTarget> condition)
+    public IMessageStage<TRuleChainBuilder, TTarget> Unless(Predicate<TTarget> condition)
     {
         return When(target => !condition(target));
     }
@@ -84,7 +84,7 @@ internal abstract class RuleBuilder<TRuleChainBuilder, TTarget, TValue> : IRuleB
         return VerifiableBy(new VerifierToTargetVerifierAdapter<TTarget, TValue>(verifier));
     }
 
-    public IMessageStage<TRuleChainBuilder> When(Predicate<TTarget> condition)
+    public IMessageStage<TRuleChainBuilder, TTarget> When(Predicate<TTarget> condition)
     {
         verificationCondition = condition;
 
@@ -93,8 +93,18 @@ internal abstract class RuleBuilder<TRuleChainBuilder, TTarget, TValue> : IRuleB
 
     public IChainStage<TRuleChainBuilder> WithMessage(string message)
     {
-        messageProvider = new ConstantMessageProvider<TTarget>(message);
+        return WithMessage(new ConstantMessageProvider<TTarget>(message));
+    }
+
+    public IChainStage<TRuleChainBuilder> WithMessage(IMessageProvider<TTarget> messageProvider)
+    {
+        this.messageProvider = messageProvider;
 
         return this;
+    }
+
+    public IChainStage<TRuleChainBuilder> WithMessage(MessageFactory<TTarget> messageFactory)
+    {
+        return WithMessage(new FactoryMessageProvider<TTarget>(messageFactory));
     }
 }
